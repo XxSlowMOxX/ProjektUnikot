@@ -52,7 +52,7 @@ class Player:
             self.y += vy
 
 room = levelSelector()
-if(input("HOST SERVER (Y/N) ?: ") == "Y"):
+if(input("HOST SERVER (Y/N) ?: ") == "Y".lower()):
     th = threading.Thread(target=hostServer, args=(1,), daemon=True)
     th.start()
 myPlayer = Player(1,1,random.randint(0, 10000))
