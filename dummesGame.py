@@ -1,7 +1,7 @@
-import os, msvcrt, slc, random
+import os, slc, random, kbhit
 import threading, socket
 
-room = [str("*" * 10),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("*" * 10)]
+room = []
 players = []
 last_message = ""
 
@@ -58,27 +58,25 @@ if(input("HOST SERVER (Y/N) ?: ") == "Y"):
 myPlayer = Player(1,1,random.randint(0, 10000))
 players.append(myPlayer)
 i=0
+keyboardListener = kbhit.KBHit()
 while(True):
     print("Players connected: " + str(len(players)) + " | Last Message: " + last_message)
     level = insertPlayer(myPlayer.rep, myPlayer.x,myPlayer.y)
     print("\n".join(level))
-    if msvcrt.kbhit():
-        char = msvcrt.getch()
-        if(char == b'd'):
+    if keyboardListener.kbhit():
+        char = keyboardListener.getch()
+        if(char == 'd'):
             myPlayer.move(0,1,room)
             myPlayer.rep = ">"
-        if(char == b's'):
+        if(char == 's'):
             myPlayer.move(1,0,room)
             myPlayer.rep = "v"
-        if(char == b'a'):
+        if(char == 'a'):
             myPlayer.move(0,-1,room)
             myPlayer.rep = "<"
-        if(char == b'w'):
+        if(char == 'w'):
             myPlayer.move(-1,0,room)
             myPlayer.rep = "ʌ"
     i+=1
     print(i)        
     os.system("cls")
-
-
-    
