@@ -1,7 +1,9 @@
 import os, msvcrt, slc, random
+import threading, socket
 
 room = [str("*" * 10),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("*" * 10)]
 players = []
+last_message = "tets"
 
 def insertPlayer(player, x, y):
     newRoom = room[:]
@@ -27,6 +29,14 @@ def levelSelector():
     print("Available Levels are : ")
     printLevels()
     return readLevel(input("Give Level Name without trailing .map: "))[:]
+
+def hostServer(name):
+    last_message = "Server was started"
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.bind(("192.168.178.54", 4230))
+    while True:
+        data, addr = sock.recvfrom(1024)
+        print("received message: %s" % data)
     
 class Player:
     rep = "v"
@@ -41,11 +51,14 @@ class Player:
             self.y += vy
 
 room = levelSelector()
+if(input("HOST SERVER (Y/N) ?: ") == "Y"):
+    th = threading.Thread(target=hostServer, args=(1,), daemon=True)
+    th.start()
 myPlayer = Player(1,1,random.randint(0, 10000))
 players.append(myPlayer)
 i=0
 while(True):
-    print("Players connected: " + str(len(players)) + " | Current PlayerID: " + str(myPlayer._id))
+    print("Players connected: " + str(len(players)) + " | Last Message: " + last_message)
     level = insertPlayer(myPlayer.rep, myPlayer.x,myPlayer.y)
     print("\n".join(level))
     if msvcrt.kbhit():
@@ -63,8 +76,7 @@ while(True):
             myPlayer.move(-1,0,room)
             myPlayer.rep = "ʌ"
     i+=1
-    print(i)
-        
+    print(i)        
     os.system("cls")
 
 
