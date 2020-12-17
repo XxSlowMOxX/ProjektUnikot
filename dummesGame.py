@@ -3,7 +3,7 @@ import threading, socket
 
 room = [str("*" * 10),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("|" + (" "*8) + "|"),str("*" * 10)]
 players = []
-last_message = "tets"
+last_message = ""
 
 def insertPlayer(player, x, y):
     newRoom = room[:]
@@ -31,11 +31,12 @@ def levelSelector():
     return readLevel(input("Give Level Name without trailing .map: "))[:]
 
 def hostServer(name):
-    last_message = "Server was started"
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind(("192.168.178.54", 4230))
+    global last_message
     while True:
         data, addr = sock.recvfrom(1024)
+        last_message = str(data) + "from" + str(addr)
         print("received message: %s" % data)
     
 class Player:
