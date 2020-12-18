@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 import os, slc, random, kbhit
 import threading, socket
+
 
 room = []
 players = []
@@ -25,7 +27,11 @@ def printLevels():
             print(potMap)
 
 def levelSelector():
-    os.system("cls")
+    if os.name =='posix':
+        os.system("clear")
+    else:
+        os.system("cls")
+
     print("Available Levels are : ")
     printLevels()
     return readLevel(input("Give Level Name without trailing .map: "))[:]
@@ -79,4 +85,7 @@ while(True):
             myPlayer.rep = "ʌ"
     i+=1
     print(i)        
-    os.system("cls")
+    if os.name =='posix':
+        os.system("clear")
+    else:
+        os.system("cls")
