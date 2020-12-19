@@ -54,6 +54,9 @@ def rungame(stdscr):
     room = readLevel('test') #end of lvlselect
     stdscr.clear()
     curses.curs_set(0)
+    stdscr.addstr(0,0,"\n".join(room))
+    stdscr.addstr(myPlayer.x,myPlayer.y,myPlayer.rep)            
+    stdscr.refresh()
     while True:
         kp = stdscr.getch()
         if(kp!=-1):
