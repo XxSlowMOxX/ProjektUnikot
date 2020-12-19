@@ -41,13 +41,36 @@ class Player:
         if(level[self.x+vx][self.y+vy] == " "):
             self.x += vx
             self.y += vy
-            
+
+myPlayer = Player(1,1,random.randint(0, 10000),curses.COLOR_RED)
+players.append(myPlayer)            
 stdscr = curses.initscr()
+curses.cbreak()
 stdscr.keypad(True)
 stdscr.addstr(0,0,"These Maps are available: \n" + "\n".join(printLevels())) #new lvlselect
 stdscr.refresh()
 room = readLevel(stdscr.getstr(len(printLevels())+2,0, 5)) #end of lvlselect
 stdscr.clear()
-stdscr.addstr(0,0,"\n".join(room))
+stdscr.nodelay(True)
+while True:
+    stdscr.addstr(0,0,"\n".join(room))
+    stdscr.addstr(myPlayer.x,myPlayer.y,myPlayer.rep)
+    kp = stdscr.getch()
+    if(kp == 3):
+        exit()  
+    elif(kp==ord("d")):
+        myPlayer.move(0,1,room)
+        myPlayer.rep = ">"
+    elif(kp==ord("a")):
+        myPlayer.move(0,-1,room)
+        myPlayer.rep = "<"
+    elif(kp==ord("w")):
+        myPlayer.move(-1,0,room)
+        myPlayer.rep = "ʌ"
+    elif(kp==ord("s")):
+        myPlayer.move(1,0,room)
+        myPlayer.rep = "v"
+        
+    stdscr.refresh()
 stdscr.refresh()
 stdscr.getkey()
