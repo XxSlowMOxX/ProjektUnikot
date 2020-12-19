@@ -2,6 +2,7 @@
 import os, slc, random, kbhit
 import threading, socket
 
+
 room = []
 players = []
 last_message = ""
@@ -33,10 +34,7 @@ def levelSelector():
 
     print("Available Levels are : ")
     printLevels()
-    try:
-        return readLevel(input("Give Level Name without trailing .map: "))[:]
-    except FileNotFoundError:
-        levelSelector()
+    return readLevel(input("Give Level Name without trailing .map: "))[:]
 
 def hostServer(name):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -63,14 +61,12 @@ room = levelSelector()
 if(input("HOST SERVER (Y/N) ?: ") == "Y".lower()):
     th = threading.Thread(target=hostServer, args=(1,), daemon=True)
     th.start()
-
 myPlayer = Player(1,1,random.randint(0, 10000))
 players.append(myPlayer)
 i=0
 keyboardListener = kbhit.KBHit()
-
 while(True):
-    print("Press <ESC> to leave the Game | Players connected: " + str(len(players)) + " | Last Message: " + last_message)
+    print("Players connected: " + str(len(players)) + " | Last Message: " + last_message)
     level = insertPlayer(myPlayer.rep, myPlayer.x,myPlayer.y)
     print("\n".join(level))
     if keyboardListener.kbhit():
@@ -87,13 +83,6 @@ while(True):
         if(char == 'w'):
             myPlayer.move(-1,0,room)
             myPlayer.rep = "ʌ"
-        if ord(char)== 27:
-            if os.name =='posix':
-                os.system("clear")
-            else:
-                os.system("cls")
-            
-            break
     i+=1
     print(i)        
     if os.name =='posix':
