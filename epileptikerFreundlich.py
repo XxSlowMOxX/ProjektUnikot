@@ -1,6 +1,5 @@
 import os, random,  curses
-import  socket
-
+import  socket, threading
 
 room = []
 players = []
@@ -37,14 +36,10 @@ class Player:
         self.y = sy
         self._id = sid
         
-		
     def move(self,vx,vy, level):
         if(level[self.x+vx][self.y+vy] == " "):
             self.x += vx
             self.y += vy
-
-
-
 
 def rungame(stdscr):
     myPlayer = Player(1,1,random.randint(0, 10000),curses.COLOR_RED)
@@ -58,6 +53,7 @@ def rungame(stdscr):
     stdscr.refresh()
     room = readLevel('test') #end of lvlselect
     stdscr.clear()
+    curses.curs_set(0)
     while True:
         kp = stdscr.getch()
         if(kp!=-1):
