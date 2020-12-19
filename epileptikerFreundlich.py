@@ -1,5 +1,7 @@
-import os, random,  curses
-import  socket, threading
+import os, random #random shit
+import curses #rendering
+import socket, threading #networking
+import netHelper #helper files
 
 room = []
 players = []
@@ -22,7 +24,7 @@ def printLevels():
 
 def hostServer(name):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind(("192.168.178.54", 4230))
+    sock.bind((netHelper.getIP(), 4230))
     global last_message
     while True:
         data, addr = sock.recvfrom(1024)
@@ -47,8 +49,6 @@ def rungame(stdscr):
     curses.cbreak()
     stdscr.keypad(True)
     stdscr.nodelay(True)
-
-
     stdscr.addstr(0,0,"These Maps are available: \n" + "\n".join(printLevels())) #new lvlselect
     stdscr.refresh()
     room = readLevel('test') #end of lvlselect
@@ -58,7 +58,7 @@ def rungame(stdscr):
         kp = stdscr.getch()
         if(kp!=-1):
             stdscr.addstr(0,0,"\n".join(room))
-            if(kp == 113):
+            if(kp == 113 or kp == 3):
                 exit()  
             elif(kp==ord("d")):
                 myPlayer.move(0,1,room)
@@ -72,8 +72,7 @@ def rungame(stdscr):
             elif(kp==ord("s")):
                 myPlayer.move(1,0,room)
                 myPlayer.rep = "v"    
-            stdscr.addstr(myPlayer.x,myPlayer.y,myPlayer.rep)
-            
+            stdscr.addstr(myPlayer.x,myPlayer.y,myPlayer.rep)            
             stdscr.refresh()
 
 curses.wrapper(rungame)
