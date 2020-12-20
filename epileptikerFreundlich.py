@@ -78,4 +78,5 @@ def rungame(stdscr):
             stdscr.addstr(myPlayer.x,myPlayer.y,myPlayer.rep)            
             stdscr.refresh()
 
+
 curses.wrapper(rungame)
