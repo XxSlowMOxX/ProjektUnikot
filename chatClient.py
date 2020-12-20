@@ -1,4 +1,4 @@
-import os, socket, threading, netHelper
+import socket, threading, netHelper
 
 messages = []
 
@@ -12,4 +12,15 @@ def hostServer(name):
 		print(addr.decode() + ": " + data.decode())
 		messages.append(data.decode())
 
-print()
+def sendMessage(name, msg):
+	sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	sock.sendto(msg, (RCV_IP, 4230))
+
+print("Chat Client Starting")
+RCV_IP = input("Enter IP to connect to: ")
+listener = threading.Thread(target=hostServer, args=(1,),daemon=True)
+listener.start()
+while True:
+	MSG = input("MESSAGE: ")
+	sender = threading.Thread(target=sendMessage,args=(1,MSG),daemon=True)
+	sender.start()
