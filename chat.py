@@ -8,7 +8,7 @@ def hostServer(name):
     srvr = socketserver.UDPServer((netHelper.getIP(), 4230), UDPHandler)
     srvr.serve_forever()
 
-def hooker():
+def hooker(name):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     global messages
     while True:
