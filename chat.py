@@ -15,7 +15,7 @@ def hooker(name):
         if(len(messages) != 0):
             sock.sendto(messages.pop(0).encode(), (HOST_IP, 4230))
         else:
-            sock.sendto(bytes("PING"), (HOST_IP, 4230))
+            sock.sendto("PING".encode(), (HOST_IP, 4230))
         time.sleep(MSG_T)
 
 
