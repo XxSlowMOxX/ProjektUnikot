@@ -21,7 +21,7 @@ def hooker(name):
 
 class UDPHandler(socketserver.BaseRequestHandler):
     def handle(self):
-        data = self.request.recv(1024)
+        data = self.request[0]
         sock = self.request[1]
         print(self.client_address[0] + " : " + data)
 
@@ -36,7 +36,7 @@ if(MODE == "H"):
     listener.start()
 else:
     HOST_IP = input("Enter Host IP: ")
-    hook = threading.Thread(target=hooker, args=(1,), daemon=True)
+    hook = threading.Thread(target=hooker, args=(2,), daemon=True)
     hook.start()
 while True:
     messages.append(input("MSG: "))
