@@ -39,4 +39,4 @@ else:
     hook = threading.Thread(target=hooker, args=(1,), daemon=True)
     hook.start()
 while True:
-    messages.append("MSG: ")
+    messages.append(input("MSG: "))
