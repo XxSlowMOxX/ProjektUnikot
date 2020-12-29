@@ -4,7 +4,7 @@ import socket, threading, netHelper, socketserver, time
 
 
 messages = []
-HOST_IP = "84.132.164.230"
+HOST_IP = "93.236.3.14"
 MSG_T = 0.1
 
 def hostServer(name):
@@ -15,13 +15,11 @@ def hooker(name):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     global messages
     i = 0
+
+    sock.sendto(str(i).encode(), (HOST_IP, 4230))
     while True:
-        if i==300:
-            i+=1
-            continue
-        sock.sendto(str(i).encode(), (HOST_IP, 4230))
         print(sock.recv(1024))
-        i+=1
+
 
 
 
@@ -32,7 +30,8 @@ class UDPHandler(socketserver.BaseRequestHandler):
 
 
 
-MODE = input("Enter Mode of Operation (H=Host/C=Client):").lower()
+#MODE = input("Enter Mode of Operation (H=Host/C=Client):").lower()
+MODE = "C"
 isHost = False
 if(MODE == "h"):
     isHost = True
@@ -48,4 +47,4 @@ else:
 
 
 while True:
-    time.sleep(1)
+    time.sleep(5)
