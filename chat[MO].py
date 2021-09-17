@@ -5,10 +5,9 @@ HOST_IP = ""
 MSG_T = 0.2
 PING_MSG = "PING"
 last_ping = 0
-wait_time = 25
 
 def hostServer(name):
-    srvr = socketserver.UDPServer((netHelper.getIP(), 4230), UDPHandler)
+    srvr = socketserver.UDPServer((netHelper.getIP(), 30814), UDPHandler)
     srvr.serve_forever()
 
 def hooker(name):
@@ -16,28 +15,30 @@ def hooker(name):
     global messages
     while True:
         if(len(messages) != 0):
-            sock.sendto(messages.pop(0).encode(), (HOST_IP, 4230))
+            sock.sendto(messages.pop(0).encode(), (HOST_IP, 30814))
         else:
-            sock.sendto(PING_MSG.encode(), (HOST_IP, 4230))
+            sock.sendto(PING_MSG.encode(), (HOST_IP, 30814))
+        print(sock.recv(1024))
         time.sleep(MSG_T)
 
 class UDPHandler(socketserver.BaseRequestHandler):
     def handle(self):
-        
-        global wait_time
+
         data = self.request[0]
         sock = self.request[1]
-        time.sleep(wait_time)
         global last_ping
         if(str(data, "utf-8").lower() == PING_MSG.lower()):
-            print("RCVD")
-        else:            
-            sock.sendto(str(last_ping).encode(), self.client_address)
-            print("Received: " + str(data, "utf-8") + "  with wait time: " + str(wait_time) + " and responded")
-            if(int(str(data, "utf-8")) != last_ping+1):
-                print("Packet Lost between: " + str(last_ping)  + " and " + str(data, "utf-8"))
-            last_ping = int(str(data, "utf-8"))
-            wait_time += 5
+            #print("RCVD")
+            if(len(messages) != 0):
+                sock.sendto(messages.pop(0).encode(), self.client_address)
+            else:
+                sock.sendto(str("Ping-ack").encode(), self.client_address)
+        else:
+            if(len(messages) != 0):
+                sock.sendto(messages.pop(0).encode(), self.client_address)
+            else:
+                sock.sendto(str("ack").encode(), self.client_address)
+            print("Received: " + str(data, "utf-8") + " and responded")
 
 MODE = input("Enter Mode of Operation (H=Host/C=Client):")
 isHost = False

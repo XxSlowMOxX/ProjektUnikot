@@ -1,4 +1,3 @@
--# -*- coding: utf-8 -*-
 import os, slc, random, kbhit
 import threading, socket
 
@@ -44,14 +43,14 @@ def hostServer(name):
         data, addr = sock.recvfrom(1024)
         last_message = str(data) + "from" + str(addr)
         print("received message: %s" % data)
-    
+
 class Player:
     rep = "v"
     def __init__(self, sx, sy, sid):
         self.x = sx
         self.y = sy
         self._id = sid
-        
+
     def move(self,vx,vy, level):
         if(level[self.x+vx][self.y+vy] == " "):
             self.x += vx
@@ -84,7 +83,7 @@ while(True):
             myPlayer.move(-1,0,room)
             myPlayer.rep = "ʌ"
     i+=1
-    print(i)        
+    print(i)
     if os.name =='posix':
         os.system("clear")
     else:

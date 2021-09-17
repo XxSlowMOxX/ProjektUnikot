@@ -4,7 +4,7 @@ import socket, threading, netHelper, socketserver, time
 
 
 messages = []
-HOST_IP = "93.236.3.14"
+HOST_IP = "141.70.1.76"
 MSG_T = 0.1
 
 def hostServer(name):

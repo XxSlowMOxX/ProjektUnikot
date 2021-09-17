@@ -37,7 +37,7 @@ class Player:
         self.x = sx
         self.y = sy
         self._id = sid
-        
+
     def move(self,vx,vy, level):
         if(level[self.x+vx][self.y+vy] == " "):
             self.x += vx
@@ -45,7 +45,7 @@ class Player:
 
 def rungame(stdscr):
     myPlayer = Player(1,1,random.randint(0, 10000),curses.COLOR_RED)
-    players.append(myPlayer)            
+    players.append(myPlayer)
     curses.cbreak()
     stdscr.keypad(True)
     stdscr.nodelay(True)
@@ -55,14 +55,14 @@ def rungame(stdscr):
     stdscr.clear()
     curses.curs_set(0)
     stdscr.addstr(0,0,"\n".join(room))
-    stdscr.addstr(myPlayer.x,myPlayer.y,myPlayer.rep)            
+    stdscr.addstr(myPlayer.x,myPlayer.y,myPlayer.rep)
     stdscr.refresh()
     while True:
         kp = stdscr.getch()
         if(kp!=-1):
             stdscr.addstr(0,0,"\n".join(room))
             if(kp == 113 or kp == 3):
-                exit()  
+                exit()
             elif(kp==ord("d")):
                 myPlayer.move(0,1,room)
                 myPlayer.rep = ">"
@@ -74,8 +74,8 @@ def rungame(stdscr):
                 myPlayer.rep = "ʌ"
             elif(kp==ord("s")):
                 myPlayer.move(1,0,room)
-                myPlayer.rep = "v"    
-            stdscr.addstr(myPlayer.x,myPlayer.y,myPlayer.rep)            
+                myPlayer.rep = "v"
+            stdscr.addstr(myPlayer.x,myPlayer.y,myPlayer.rep)
             stdscr.refresh()
 
 
