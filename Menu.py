@@ -1,6 +1,6 @@
 import curses
 
-def menu(options):
+def menu(options,stdscr):
     curses.cbreak()
     stdscr.keypad(True)
     stdscr.nodelay(False)
@@ -42,5 +42,9 @@ def menu(options):
 #259 = hoch
 #10 = Enter
 
-stdscr = curses.initscr()
-menu(["Singleplayer", "Multiplayer", "Optionen", "Ist das nicht cool?"])
+
+
+def main(stdscr):
+	menu(["Singleplayer", "Multiplayer", "Optionen", "Ist das nicht cool?"], stdscr)
+
+curses.wrapper(main)
