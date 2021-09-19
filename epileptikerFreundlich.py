@@ -49,6 +49,10 @@ def rungame(stdscr):
     curses.cbreak()
     stdscr.keypad(True)
     stdscr.nodelay(True)
+    stdscr.addstr(5,0, "Start in Host(H) or Client(C) Mode?")
+    stdscr.refresh()
+    mode = stdscr.getstr(6,0, 1)
+    stdscr.clear()
     stdscr.addstr(0,0,"These Maps are available: \n" + "\n".join(printLevels())) #new lvlselect
     stdscr.refresh()
     room = readLevel('test') #end of lvlselect
