@@ -26,9 +26,9 @@ def menu(options,stdscr):
     select(current)
     while True:
         num = stdscr.getch()
-        if (num == 258):
+        if (num == 258 or num == 106 ):
             current = current + 1
-        elif (num == 259):
+        elif (num == 259 or num== 107 ):
             current = current - 1
         elif (num == 10):
             break
@@ -45,6 +45,7 @@ def menu(options,stdscr):
 
 
 def main(stdscr):
-	menu(["Singleplayer", "Multiplayer", "Optionen", "Ist das nicht cool?"], stdscr)
+	menu(["Singleplayer", "Multiplayer", "Optionen", "Ist das nicht cool?"],
+	stdscr)
 
 curses.wrapper(main)
