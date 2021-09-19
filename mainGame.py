@@ -7,6 +7,7 @@ room = []
 players = []
 last_message = ""
 
+				        
 def readLevel(name):
     loc = os.path.join(os.path.dirname(__file__), "levels/" + name +".map")
     with open(loc, "r+") as mapfile:
@@ -30,6 +31,14 @@ def hostServer(name):
         data, addr = sock.recvfrom(1024)
         last_message = str(data) + "from" + str(addr)
         print("received message: %s" % data)
+
+def getMPOS():
+    return "7,4,l"
+
+
+
+
+
 
 class Player:
     rep = ">"
