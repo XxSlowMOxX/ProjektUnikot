@@ -56,7 +56,7 @@ class Player:
 
 def rungame(stdscr):
     myPlayer = Player(1, 1, random.randint(0, 10000), curses.COLOR_RED)
-# own Player always FIRST Player, was btw ne blöde Idee ist
+    # own Player always FIRST Player, was btw ne blöde Idee ist
     GAME = Game([myPlayer])
     curses.cbreak()
     stdscr.keypad(True)
@@ -73,7 +73,7 @@ def rungame(stdscr):
         if (mpMode == Menu.Host):
             try:
                 Netzwerker.getHookedorListen(
-                    GAME, isClient=False, IP="10.0.0.1", PORT=30814)
+                    GAME, isClient=False)
             except Exception as E:
                 print(E)
                 exit()
