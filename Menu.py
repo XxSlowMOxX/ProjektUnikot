@@ -1,4 +1,5 @@
 import curses
+import requests
 
 def menu(options,stdscr):
     curses.cbreak()

@@ -1,9 +1,7 @@
 import os
 import random  # random shit
 import curses  # rendering
-import socket
-import threading  # networking
-import netHelper  # helper files; get you IP
+import socket, threading, netHelper  # helper files; get you IP
 import Netzwerker  # getHookedorListen function
 from gameclass import Game
 import netHelper  # helper files
@@ -56,7 +54,7 @@ class Player:
 
 def rungame(stdscr):
     myPlayer = Player(1, 1, random.randint(0, 10000), curses.COLOR_RED)
-# own Player always FIRST Player, was btw ne blöde Idee ist
+    # own Player always FIRST Player, was btw ne blöde Idee ist
     GAME = Game([myPlayer])
     curses.cbreak()
     stdscr.keypad(True)
