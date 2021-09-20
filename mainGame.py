@@ -66,24 +66,19 @@ def rungame(stdscr):
 
     if (mainMenu == Menu.Singleplayer):
         exit()
-    elif (mainMenu == Menu.Multiplayer):
 
+    elif (mainMenu == Menu.Multiplayer):
         mpMode = Menu.menu(["Host", "Join"], stdscr)
 
         if (mpMode == Menu.Host):
-            try:
-                Netzwerker.getHookedorListen(
+            Netzwerker.getHookedorListen(
                     GAME, isClient=False, IP="10.0.0.1", PORT=30814)
-            except Exception as E:
-                print(E)
-                exit()
+
         elif (mpMode == Menu.Join):
-            try:
-                Netzwerker.getHookedorListen(
-                    GAME, isClient=True, IP="10.0.0.1", PORT=30814)
-            except Exception as E:
-                print(E)
-                exit()
+            Netzwerker.getHookedorListen(
+                GAME, isClient=True, IP="93.236.6.172", PORT=30814)
+            myPlayer.x +=1
+
 
     levelIndex = Menu.menu(printLevels(), stdscr)
     room = readLevel(printLevels()[levelIndex][:-4])
@@ -91,7 +86,9 @@ def rungame(stdscr):
     stdscr.clear()
     curses.curs_set(0)
     stdscr.addstr(0, 0, "\n".join(room))
-    stdscr.addstr(myPlayer.x, myPlayer.y, myPlayer.rep)
+    for player in GAME.Players:
+        stdscr.addstr(player.x, player.y, player.rep)
+
     stdscr.refresh()
 
     while True:

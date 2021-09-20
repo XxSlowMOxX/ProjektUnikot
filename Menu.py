@@ -48,8 +48,8 @@ Join = 1
 
 
 
-#def main(stdscr):
-#	menu(["Singleplayer", "Multiplayer", "Optionen", "Ist das nicht cool?"],
-#	stdscr)
+def main(stdscr):
+	menu(["Singleplayer", "Multiplayer", "Optionen", "Ist das nicht cool?"],
+	stdscr)
 
-#curses.wrapper(main)
+curses.wrapper(main)
