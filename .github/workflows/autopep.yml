@@ -29,8 +29,8 @@ jobs:
     - run: |
         for changed_file in ${{ steps.files.outputs.all }}; do
           echo "Checking Filetype of ${changed_file}."
-          if endsWith("${changed_file}", ".py") do
+          if (endsWith("${changed_file}", ".py")) {
             autopep8 -i ${changed_file}
-          done
+          }
         done
 
