@@ -2,12 +2,13 @@ import os, random #random shit
 import curses #rendering
 import socket, threading #networking
 import netHelper #helper files
+import Menu #Menu for Main Menu, etc.
 
 room = []
 players = []
 last_message = ""
 
-				        
+
 def readLevel(name):
     loc = os.path.join(os.path.dirname(__file__), "levels/" + name +".map")
     with open(loc, "r+") as mapfile:
@@ -41,8 +42,9 @@ def getMPOS():
 
 
 class Player:
+    name = "test"
     rep = ">"
-    def __init__(self, sx, sy, sid, col):
+    def __init__(self, sx, sy, sid, col, name):
         self.x = sx
         self.y = sy
         self._id = sid
@@ -58,13 +60,21 @@ def rungame(stdscr):
     curses.cbreak()
     stdscr.keypad(True)
     stdscr.nodelay(True)
-    stdscr.addstr(5,0, "Start in Host(H) or Client(C) Mode?")
-    stdscr.refresh()
-    mode = stdscr.getstr(6,0, 1)
-    stdscr.clear()
-    stdscr.addstr(0,0,"These Maps are available: \n" + "\n".join(printLevels())) #new lvlselect
-    stdscr.refresh()
-    room = readLevel('test') #end of lvlselect
+    """player = Menu.menu(["Singleplayer", "Multiplayer"], stdscr)
+    if (player == Menu.Singleplayer): #Singleplayer
+        print("Singleplayer ist not yet possible")
+        exit()
+    elif (player == Menu.Multiplayer): #Multiplayer
+        mode = Menu.menu(["Host", "Join"], stdscr)
+        if (mode == Menu.Host):
+            a = 1
+            #Host Code
+        elif (mode == Menu.Join):
+            a =1"""
+
+    levelIndex = Menu.menu(printLevels(), stdscr)
+    room = readLevel(printLevels()[levelIndex][:-4]) #end of lvlselect
+
     stdscr.clear()
     curses.curs_set(0)
     stdscr.addstr(0,0,"\n".join(room))

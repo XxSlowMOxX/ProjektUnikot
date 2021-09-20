@@ -33,9 +33,13 @@ def menu(options,stdscr):
         elif (num == 10):
             break
         select(current%len(options))
+    stdscr.nodelay(False)
     return current
 
-
+Singleplayer = 0
+Multiplayer = 1
+Host = 0
+Join = 1
 
 
 #258 = runter
@@ -44,8 +48,8 @@ def menu(options,stdscr):
 
 
 
-def main(stdscr):
-	menu(["Singleplayer", "Multiplayer", "Optionen", "Ist das nicht cool?"],
-	stdscr)
+#def main(stdscr):
+#	menu(["Singleplayer", "Multiplayer", "Optionen", "Ist das nicht cool?"],
+#	stdscr)
 
-curses.wrapper(main)
+#curses.wrapper(main)
