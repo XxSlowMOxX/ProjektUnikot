@@ -1,8 +1,7 @@
 import os
 import random  # random shit
 import curses  # rendering
-import socket, threading, netHelper  # helper files; get you IP
-import Netzwerker  # getHookedorListen function
+import socket, threading, netHelper, Netzwerker  # getHookedorListen function
 from gameclass import Game
 import netHelper  # helper files
 import Menu  # Menu for Main Menu, etc.
