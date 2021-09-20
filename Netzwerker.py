@@ -26,7 +26,7 @@ def hooker(name, HOST_IP, PORT, GAME):
 	    sock.sendto(str(mpos).encode(), (HOST_IP, PORT))
 
 	else:
-		sock.sendto(PING_MSG.encode(), (HOST_IP, PORT))
+	    sock.sendto(PING_MSG.encode(), (HOST_IP, PORT))
 	print(mpos)
 	print("sent")
 	opos =sock.recv(1024)
@@ -57,7 +57,6 @@ class UDPHandler(socketserver.BaseRequestHandler):
             print("Received: " + str(data, "utf-8") + " and responded")
 
 def getHookedorListen(GAME, isClient=True, IP="", PORT=30814,):
-	""" returns thread to do stuff"""
 	if(not isClient):
 		isHost = True
 		print("Server Mode Selected. Starting now...")
