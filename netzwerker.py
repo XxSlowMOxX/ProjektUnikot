@@ -1,5 +1,5 @@
 import socket, threading, netHelper, socketserver, time
-from gameclass import Game 
+from gameclass import Game
 import ast # for list <-> string parsing
 
 
@@ -18,8 +18,8 @@ def hooker(name, HOST_IP, PORT, GAME):
 
 	sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-	mpos = [] 
-	if (mpos != GAME.getMPos()): 
+	mpos = []
+	if (mpos != GAME.getMPos()):
 ################# FEHLT ################
 	    mpos = GAME.getMPos()
 ################# FEHLT ################
