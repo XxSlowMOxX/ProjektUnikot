@@ -1,4 +1,4 @@
-name: Django CI
+name: autopeper
 
 on:
   push:
@@ -28,6 +28,9 @@ jobs:
       uses: jitterbit/get-changed-files@v1
     - run: |
         for changed_file in ${{ steps.files.outputs.all }}; do
-          echo "Do something with this ${changed_file}."
+          echo "Checking Filetype of ${changed_file}."
+          if endsWith(${changed_file}, ".py") do
+            autopep8 -i ${changed_file}
+          done
         done
 
