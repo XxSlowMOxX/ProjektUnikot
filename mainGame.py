@@ -78,12 +78,21 @@ def rungame(stdscr):
         stdscr.addstr(player.x, player.y, player.rep)
 
     stdscr.refresh()
+    stdscr.nodelay(True)
 
     while True:
         kp = stdscr.getch()
+        # DEBUGgging
         stdscr.addstr(13,1,str(time.time()))
-        if (kp != -1):
-            stdscr.addstr(0, 0, "\n".join(room))
+
+
+
+        stdscr.addstr(0, 0, "\n".join(room))
+
+        for player in range(len(GAME.Players)):
+            # yes this is ugly
+            stdscr.addstr(GAME.Players[player].x, GAME.Players[player].y, "-")
+
         if (kp == 113 or kp == 3):
             exit()
         elif (kp == ord("d")):
@@ -100,6 +109,7 @@ def rungame(stdscr):
             myPlayer.rep = "v"
 
         for player in range(len(GAME.Players)):
+            # yes this is ugly
             stdscr.addstr(10+player,1, str(GAME.Players[player].x)+
                     ","+str(GAME.Players[player].y)+" "+GAME.Players[player].rep)
             stdscr.addstr(GAME.Players[player].x, GAME.Players[player].y, GAME.Players[player].rep)
