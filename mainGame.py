@@ -3,9 +3,10 @@ import random  # random shit
 import curses  # rendering
 import socket, threading, netHelper  # helper files; get you IP
 import Netzwerker  # getHookedorListen function
-from gameclass import Game
+from gameclass import Game, Player
 import netHelper  # helper files
 import Menu  # Menu for Main Menu, etc.
+import time
 
 room = []
 players = []
@@ -39,17 +40,6 @@ def hostServer(name):
         print("received message: %s" % data)
 
 
-class Player:
-    def __init__(self, sx, sy, sid, col):
-        self.x = sx
-        self.y = sy
-        self._id = sid
-        self.rep = ">"
-
-    def move(self, vx, vy, level):
-        if(level[self.x+vx][self.y+vy] == " "):
-            self.x += vx
-            self.y += vy
 
 
 def rungame(stdscr):
@@ -70,12 +60,12 @@ def rungame(stdscr):
 
         if (mpMode == Menu.Host):
             Netzwerker.getHookedorListen(
-                    GAME, isClient=False, IP="10.0.0.1", PORT=30814)
+                    GAME, isClient=False, IP="localhost", PORT=30814)
 
         elif (mpMode == Menu.Join):
-            Netzwerker.getHookedorListen(
-                GAME, isClient=True, IP="93.236.6.172", PORT=30814)
             myPlayer.x +=1
+            Netzwerker.getHookedorListen(
+                GAME, isClient=True, IP="localhost", PORT=30814)
 
 
     levelIndex = Menu.menu(printLevels(), stdscr)
@@ -91,6 +81,7 @@ def rungame(stdscr):
 
     while True:
         kp = stdscr.getch()
+        stdscr.addstr(13,1,str(time.time()))
         if (kp != -1):
             stdscr.addstr(0, 0, "\n".join(room))
         if (kp == 113 or kp == 3):
@@ -108,7 +99,11 @@ def rungame(stdscr):
             myPlayer.move(1, 0, room)
             myPlayer.rep = "v"
 
-        stdscr.addstr(myPlayer.x, myPlayer.y, myPlayer.rep)
+        for player in range(len(GAME.Players)):
+            stdscr.addstr(10+player,1, str(GAME.Players[player].x)+
+                    ","+str(GAME.Players[player].y)+" "+GAME.Players[player].rep)
+            stdscr.addstr(GAME.Players[player].x, GAME.Players[player].y, GAME.Players[player].rep)
+
         stdscr.refresh()
 
 

@@ -53,4 +53,3 @@ def main(stdscr):
 	menu(["Singleplayer", "Multiplayer", "Optionen", "Ist das nicht cool?"],
 	stdscr)
 
-curses.wrapper(main)
