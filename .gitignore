@@ -1,3 +1,8 @@
 *.pyc
 __pycache__/
 .vs/
+.idea/misc.xml
+.idea/modules.xml
+.idea/ProjektUnikot.iml
+.idea/vcs.xml
+.idea/workspace.xml
