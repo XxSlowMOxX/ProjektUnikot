@@ -17,7 +17,10 @@ def hooker(name):
             sock.sendto("#".join(messages[connections[0]]).encode(), (connections[0], 30814))
             messages[connections[0]].clear()
             print("sent")
-            print(sock.recv(4096))
+            print(sock.recv(4096).decode())
+        else:
+            sock.sendto("empty#".encode(), (connections[0], 30814))
+            print(sock.recv(4096).decode())
         #for cmd in ret.split("#"):
          #   cmdHandler(cmd)
         time.sleep(MSG_TIME)
@@ -44,6 +47,9 @@ class UDPHandler(socketserver.BaseRequestHandler):
                 messages[connection].append(str(data, "utf-8"))
 
         print(messages)
+
+        if(len(messages[self.client_address[0]]) != 0):
+            sock.sendto("#".join(messages[self.client_address[0]]), self.client_address)
         sock.sendto(str("empty#").encode(), self.client_address)
 
 
