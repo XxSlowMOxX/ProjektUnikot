@@ -60,7 +60,7 @@ def rungame(stdscr):
 
         if (mpMode == Menu.Host):
             Netzwerker.getHookedorListen(
-                    GAME, isClient=False, IP="192.168.2.134", PORT=30814)
+                    GAME, isClient=False, IP=netHelper.getIP(), PORT=30814)
 
         elif (mpMode == Menu.Join):
             myPlayer.x +=1
