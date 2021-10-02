@@ -60,12 +60,12 @@ def rungame(stdscr):
 
         if (mpMode == Menu.Host):
             Netzwerker.getHookedorListen(
-                    GAME, isClient=False, IP="localhost", PORT=30814)
+                    GAME, isClient=False, IP="192.168.2.134", PORT=30814)
 
         elif (mpMode == Menu.Join):
             myPlayer.x +=1
             Netzwerker.getHookedorListen(
-                GAME, isClient=True, IP="localhost", PORT=30814)
+                GAME, isClient=True, IP="192.168.2.134", PORT=30814)
 
 
     levelIndex = Menu.menu(printLevels(), stdscr)
@@ -115,6 +115,5 @@ def rungame(stdscr):
             stdscr.addstr(GAME.Players[player].x, GAME.Players[player].y, GAME.Players[player].rep)
 
         stdscr.refresh()
-
 
 curses.wrapper(rungame)
