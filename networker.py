@@ -3,9 +3,12 @@ import threading
 import netHelper
 import socketserver
 import time
+from Commands.Command import Command
 
-messages = {}
+messages : dict[str, list[str]] = {}
 connections = []
+
+
 
 MSG_TIME = 0.2
 
@@ -56,17 +59,25 @@ class UDPHandler(socketserver.BaseRequestHandler):
 
 def host():
     print("ServerMode:")
+    print("Hosting on " + netHelper.getIP())
     listener = threading.Thread(target=hostServer, args=(1,), daemon=True)
     listener.start()
 
 def client(HOST_IP):
     print("ClientMode")
+    print("Connecting to " + HOST_IP)
     connections.append(HOST_IP)
     hook = threading.Thread(target=hooker, args=(2,),daemon=True)
     hook.start()
 
-def cmdHandler(cmd):
-    print(cmd)
+def sendCommand(Cmd : Command, Receivers : list[str]):
+    for Receiver in Receivers:
+        messages[Receiver].append(Cmd.serialize())
+    return None
+
+
+def cmdHandler(Cmd : Command):
+    print(Command.name)
 
 m = input("Mode")
 if (m == "h"):

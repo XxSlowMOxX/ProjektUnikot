@@ -53,6 +53,7 @@ isHost = False
 if(MODE == "H"):
     isHost = True
     print("Server Mode Selected. Starting now...")
+    print("Hosting on IP: " + netHelper.getIP())
     listener = threading.Thread(target=hostServer, args=(1,), daemon=True)
     listener.start()
 else:

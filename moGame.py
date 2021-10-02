@@ -7,6 +7,7 @@ from gameclass import Game, Player
 import netHelper  # helper files
 import Menu  # Menu for Main Menu, etc.
 import time
+import TextInput
 
 room = []
 players = []
@@ -50,12 +51,15 @@ def rungame(stdscr):
     stdscr.keypad(True)
     stdscr.nodelay(True)
 
-    mainMenu = Menu.menu(["Singleplayer", "Multiplayer"], stdscr)
+    mainMenu = Menu.menu(["Exit", "Multiplayer"], stdscr)
 
     if (mainMenu == Menu.Singleplayer):
         exit()
 
     elif (mainMenu == Menu.Multiplayer):
+
+        myName = TextInput.TextInput(stdscr, "Player Name", width=12)
+
         mpMode = Menu.menu(["Host", "Join"], stdscr)
 
         if (mpMode == Menu.Host):
