@@ -5,7 +5,7 @@ import ast # for list <-> string parsing
 
 
 messages = []
-MSG_T = 0.2
+MSG_T = 0.01
 PING_MSG = "PING"
 last_ping = 0
 

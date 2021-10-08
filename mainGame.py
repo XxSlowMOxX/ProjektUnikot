@@ -3,6 +3,7 @@ import random  # random shit
 import curses  # rendering
 import socket, threading, netHelper  # helper files; get you IP
 import Netzwerker  # getHookedorListen function
+import TextInput
 from gameclass import Game, Player
 import netHelper  # helper files
 import Menu  # Menu for Main Menu, etc.
@@ -64,8 +65,9 @@ def rungame(stdscr):
 
         elif (mpMode == Menu.Join):
             myPlayer.x +=1
+            HOST_IP = TextInput.TextInput( stdscr, "Host IP", 15)
             Netzwerker.getHookedorListen(
-                GAME, isClient=True, IP="192.168.2.85", PORT=30814)
+                GAME, isClient=True, IP=HOST_IP, PORT=30814)
 
 
     levelIndex = Menu.menu(printLevels(), stdscr)
